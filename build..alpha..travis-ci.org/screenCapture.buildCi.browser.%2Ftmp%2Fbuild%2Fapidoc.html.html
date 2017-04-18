@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.deasync.deasync">
+            function <span class="apidocSignatureSpan"></span>deasync
+            <span class="apidocSignatureSpan">(fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.deasync.loopWhile">
             function <span class="apidocSignatureSpan">deasync.</span>loopWhile
             <span class="apidocSignatureSpan">(pred)</span>
@@ -87,6 +96,39 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.deasync" id="apidoc.module.deasync">module deasync</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.deasync.deasync" id="apidoc.element.deasync.deasync">
+        function <span class="apidocSignatureSpan"></span>deasync
+        <span class="apidocSignatureSpan">(fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function deasync(fn) {
+		return function() {
+			var done = false;
+			var args = Array.prototype.slice.apply(arguments).concat(cb);
+			var err;
+			var res;
+
+			fn.apply(this, args);
+			module.exports.loopWhile(function(){return !done;});
+			if (err)
+				throw err;
+
+			return res;
+
+			function cb(e, r) {
+				err = e;
+				res = r;
+				done = true;		
+			}
+		}
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
